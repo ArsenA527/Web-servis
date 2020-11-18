@@ -6,9 +6,13 @@ const app = express();
 
 app.use(bodyParser.json());
 app.post('/', (req, res) => {
+    let obj;
     if (!req.body) return res.sendStatus(400);
-    console.log(req.body);
-    res.send('It is Work')
+    obj = req.body;
+    let tmpl = _.template(obj.template);
+    res.send({
+        result: tmpl(obj.substitutions)
+    })
 });
 
 
